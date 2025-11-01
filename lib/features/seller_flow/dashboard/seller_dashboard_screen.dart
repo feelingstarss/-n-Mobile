@@ -54,7 +54,7 @@ class SellerDashboardScreen extends StatelessWidget {
               },
             ),
           ),
-          // CARD MỚI ĐƯỢC THÊM
+
           Card(
             child: ListTile(
               leading: const Icon(Icons.account_circle, color: Colors.purple),
@@ -72,4 +72,5 @@ class SellerDashboardScreen extends StatelessWidget {
       ),
     );
   }
+
 }
