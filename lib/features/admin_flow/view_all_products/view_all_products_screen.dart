@@ -147,7 +147,7 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: _firestoreService
-                  .searchAllProducts(_searchQuery), // Dùng hàm tìm kiếm mới
+                  .searchAllProducts(_searchQuery), 
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const Center(child: Text('Đã xảy ra lỗi'));
@@ -197,3 +197,4 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
   }
 
 }
+
