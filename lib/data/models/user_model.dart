@@ -15,7 +15,7 @@ class UserModel {
     required this.role,
   });
 
-  // Factory constructor để tạo UserModel từ Firestore document
+ 
   factory UserModel.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
     return UserModel(
@@ -25,4 +25,5 @@ class UserModel {
       role: data['role'] ?? 'user',
     );
   }
+
 }
