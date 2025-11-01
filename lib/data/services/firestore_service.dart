@@ -5,9 +5,7 @@ import 'package:flutter/foundation.dart'; // <-- THÊM IMPORT NÀY
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  // =====================================================
-  // ===================== SẢN PHẨM =====================
-  // =====================================================
+
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getProductDetails(
       String productId) {
@@ -100,9 +98,7 @@ class FirestoreService {
     return query.snapshots();
   }
 
-  // =====================================================
-  // ===================== GIỎ HÀNG =====================
-  // =====================================================
+
 
   Stream<QuerySnapshot> getCartStream(String userId) {
     return _db.collection('users').doc(userId).collection('cart').snapshots();
@@ -147,11 +143,9 @@ class FirestoreService {
     await cartRef.delete();
   }
 
-  // =====================================================
-  // ===================== ĐƠN HÀNG =====================
-  // =====================================================
+ 
 
-  /// Lấy danh sách đơn hàng của người dùng
+
   Stream<QuerySnapshot> getOrdersByUser(String userId) {
     return _db
         .collection('orders')
@@ -160,7 +154,7 @@ class FirestoreService {
         .snapshots();
   }
 
-  /// Lấy danh sách đơn hàng có sản phẩm của seller
+ 
   Stream<QuerySnapshot> getOrdersBySeller(String sellerId) {
     return _db
         .collection('orders')
@@ -169,17 +163,17 @@ class FirestoreService {
         .snapshots();
   }
 
-  /// Lấy tất cả đơn hàng (Admin)
+
   Stream<QuerySnapshot> getAllOrdersStream() {
     return _db.collection('orders').orderBy('createdAt', descending: true).snapshots();
   }
 
-  /// Cập nhật trạng thái đơn hàng
+
   Future<void> updateOrderStatus(String orderId, String newStatus) async {
     await _db.collection('orders').doc(orderId).update({'status': newStatus});
   }
 
-  /// Tạo đơn hàng mới — tự động lấy sellerIds từ items
+
   Future<void> createOrder({
     required String userId,
     required List<Map<String, dynamic>> items,
@@ -212,10 +206,6 @@ class FirestoreService {
     await _db.collection('orders').add(orderData);
   }
 
-  // =====================================================
-  // ===================== NGƯỜI DÙNG =====================
-  // =====================================================
-
   Future<void> updateUserProfile(String userId, Map<String, dynamic> data) async {
     await _db.collection('users').doc(userId).update(data);
   }
@@ -240,21 +230,17 @@ class FirestoreService {
     return _db.collection('users').snapshots();
   }
 
-  // =====================================================
-  // ===================== HỖ TRỢ ĐƠN HÀNG SELLER ========
-  // =====================================================
-
   Future<List<Map<String, dynamic>>> getSellerProductsInOrder(
       String orderId, String sellerId) async {
     try {
       final orderDoc = await _db.collection('orders').doc(orderId).get();
       if (!orderDoc.exists) {
-        // SỬA LỖI 1:
+      
         debugPrint("=== DEBUG Firestore: Order $orderId not found");
         return [];
       }
       final orderData = orderDoc.data();
-      // SỬA LỖI 2:
+
       debugPrint("=== DEBUG Firestore: Order data for $orderId: $orderData");
       final List<dynamic> products = orderData?['items'] ?? [];
       final List<Map<String, dynamic>> sellerProducts = [];
@@ -264,12 +250,12 @@ class FirestoreService {
         if (productId == null) continue;
         final productDoc = await getProductDetails(productId);
         if (!productDoc.exists) {
-          // SỬA LỖI 3:
+   
           debugPrint("=== DEBUG Firestore: Product $productId not found");
           continue;
         }
         final productData = productDoc.data();
-        // SỬA LỖI 4:
+ 
         debugPrint(
             "=== DEBUG Firestore: Product $productId sellerId: ${productData?['sellerId']}");
         if (productData?['sellerId'] == sellerId) {
@@ -277,11 +263,11 @@ class FirestoreService {
         }
       }
       return sellerProducts;
-    } catch (e, s) { // <-- Thêm ", s" để lấy StackTrace
-      // SỬA LỖI 5:
+    } catch (e, s) { 
       debugPrint(
           "=== DEBUG Firestore Error in getSellerProductsInOrder: $e\nStackTrace: $s");
       return [];
     }
   }
 }
+
