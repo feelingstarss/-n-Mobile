@@ -7,14 +7,14 @@ class ProductModel {
   final String productName;
   final String description;
   final int price;
-  final String category; // <-- Thêm mới
-  final List<dynamic> variants; // <-- Thêm mới
+  final String category; 
+  final List<dynamic> variants; 
   final List<String> imageUrls;
   final String sellerId;
   final String sellerName;
   final Timestamp? createdAt;
   
-  // Các trường này chỉ để tương thích với code cũ, có thể bỏ đi sau này
+  
   final List<String>? sizes;
   final List<String>? colors;
   final int? stock;
@@ -43,8 +43,8 @@ class ProductModel {
       productName: data['productName'] ?? '',
       description: data['description'] ?? '',
       price: data['price'] ?? 0,
-      category: data['category'] ?? '', // <-- Thêm mới
-      variants: data['variants'] ?? [], // <-- Thêm mới
+      category: data['category'] ?? '', 
+      variants: data['variants'] ?? [], 
       imageUrls: List<String>.from(data['imageUrls'] ?? []),
       sellerId: data['sellerId'] ?? '',
       sellerName: data['sellerName'] ?? '',
@@ -55,3 +55,4 @@ class ProductModel {
     );
   }
 }
+
