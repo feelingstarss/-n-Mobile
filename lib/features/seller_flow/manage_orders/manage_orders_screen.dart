@@ -14,7 +14,7 @@ class ManageOrdersScreen extends StatelessWidget {
     final authService = Provider.of<AuthService>(context, listen: false);
     final String? sellerId = authService.currentUserId;
 
-    debugPrint("=== DEBUG ManageOrders: SellerId = $sellerId");  // Debug sellerId
+    debugPrint("=== DEBUG ManageOrders: SellerId = $sellerId"); 
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +26,7 @@ class ManageOrdersScreen extends StatelessWidget {
               stream: _firestoreService.getOrdersBySeller(sellerId),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  debugPrint("=== DEBUG ManageOrders Error: ${snapshot.error}");  // Debug lỗi
+                  debugPrint("=== DEBUG ManageOrders Error: ${snapshot.error}"); 
                   return const Center(
                       child: Text('Đã xảy ra lỗi khi tải đơn hàng.'));
                 }
@@ -54,7 +54,7 @@ class ManageOrdersScreen extends StatelessWidget {
                       future: _firestoreService.getSellerProductsInOrder(orderDoc.id, sellerId),
                       builder: (context, productSnapshot) {
                         if (productSnapshot.hasError) {
-                          debugPrint("=== DEBUG ManageOrders Future Error: ${productSnapshot.error}");  // Debug lỗi Future
+                          debugPrint("=== DEBUG ManageOrders Future Error: ${productSnapshot.error}");  
                           return const SizedBox.shrink();
                         }
                         if (productSnapshot.connectionState == ConnectionState.waiting) {
@@ -62,7 +62,7 @@ class ManageOrdersScreen extends StatelessWidget {
                         }
                         if (!productSnapshot.hasData || productSnapshot.data!.isEmpty) {
                           debugPrint("=== DEBUG ManageOrders: No seller products in order ${orderDoc.id}");
-                          return const SizedBox();  // Bỏ qua nếu không có sản phẩm của seller
+                          return const SizedBox();  
                         }
 
                         final sellerProducts = productSnapshot.data!;
@@ -141,4 +141,5 @@ class ManageOrdersScreen extends StatelessWidget {
             ),
     );
   }
+
 }
