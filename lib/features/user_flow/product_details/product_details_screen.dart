@@ -1,7 +1,7 @@
 // lib/features/user_flow/product_details/product_details_screen.dart
 
-import 'dart:convert'; // <-- Import để dùng base64Decode
-import 'dart:typed_data'; // <-- Import để dùng Uint8List
+import 'dart:convert'; 
+import 'dart:typed_data'; 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doanmobile/data/services/auth_service.dart';
 import 'package:doanmobile/data/services/firestore_service.dart';
@@ -22,18 +22,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   String? _selectedSize;
   int _currentImageIndex = 0;
 
-  // Biến để lưu trữ Future, tránh gọi lại trong build()
+ 
   late Future<DocumentSnapshot> _productDetailsFuture;
 
   @override
   void initState() {
     super.initState();
-    // Gọi Future MỘT LẦN duy nhất khi màn hình được khởi tạo
+  
     _productDetailsFuture =
         _firestoreService.getProductDetails(widget.productId);
   }
 
-  // Lấy danh sách các size còn hàng
+ 
   List<String> _getAvailableSizes(List<dynamic> variants) {
     return variants
         .where((v) => v['stock'] > 0)
@@ -42,7 +42,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         .toList();
   }
 
-  // Tìm số lượng tồn kho của size đã chọn
+
   int _getSelectedVariantStock(List<dynamic> variants) {
     if (_selectedSize == null) return 0;
     final variant = variants.firstWhere(
@@ -52,7 +52,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     return variant != null ? (variant['stock'] as int) : 0;
   }
   
-  // Hàm tiện ích để hiển thị lỗi ảnh
+ 
   Widget _buildErrorPlaceholder(String error) {
     print("LỖI HIỂN THỊ ẢNH: $error");
     return Container(
@@ -73,7 +73,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         foregroundColor: Colors.black87,
       ),
       body: FutureBuilder<DocumentSnapshot>(
-        future: _productDetailsFuture, // <-- SỬ DỤNG FUTURE ĐÃ LƯU
+        future: _productDetailsFuture, 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -94,7 +94,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Image gallery
+           
                 if (imageUrls.isNotEmpty)
                   Stack(
                     alignment: Alignment.bottomCenter,
@@ -106,25 +106,25 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           onPageChanged: (index) =>
                               setState(() => _currentImageIndex = index),
                           
-                          // --- CODE ĐÃ SỬA ĐỂ ĐỌC BASE64 ---
+                         
                           itemBuilder: (context, index) {
                             final imageDataString = imageUrls[index];
 
-                            // 1. KIỂM TRA NẾU LÀ BASE64
+                           
                             if (imageDataString.startsWith('data:image')) {
                               try {
-                                // Tách chuỗi "data:image/png;base64,ABC..."
+                               
                                 final parts = imageDataString.split(',');
                                 if (parts.length != 2) {
                                   return _buildErrorPlaceholder("Data URI không hợp lệ");
                                 }
-                                // Lấy phần dữ liệu Base64
+                            
                                 final base64Data = parts[1];
                                 
-                                // Giải mã Base64 thành bytes
+                            
                                 final Uint8List imageBytes = base64Decode(base64Data);
 
-                                // Dùng Image.memory để hiển thị
+                               
                                 return Image.memory(
                                   imageBytes,
                                   fit: BoxFit.cover,
@@ -135,7 +135,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 return _buildErrorPlaceholder("Lỗi Base64: $e");
                               }
                             }
-                            // 2. KIỂM TRA NẾU LÀ URL (cho các ảnh cũ)
+                            
                             else if (imageDataString.startsWith('http')) {
                               return Image.network(
                                 imageDataString,
@@ -144,12 +144,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     _buildErrorPlaceholder("Lỗi tải URL: $e"),
                               );
                             }
-                            // 3. NẾU KHÔNG PHẢI CẢ HAI
+                           
                             else {
                               return _buildErrorPlaceholder("Định dạng ảnh không được hỗ trợ");
                             }
                           },
-                          // --- KẾT THÚC SỬA ---
+                        
                         ),
                       ),
                       Positioned(
@@ -176,7 +176,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ],
                   ),
 
-                // Product info
+               
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -197,7 +197,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               color: Theme.of(context).primaryColor)),
                       const Divider(height: 30),
 
-                      // Size selector
+                     
                       _buildOptionSelector(
                         title: 'Size:',
                         options: availableSizes,
@@ -206,7 +206,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             setState(() => _selectedSize = value),
                       ),
 
-                      // Display stock quantity
+                   
                       if (_selectedSize != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
@@ -222,7 +222,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
 
-                      // Description
+                     
                       ExpansionTile(
                         title: const Text('Mô tả sản phẩm',
                             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -248,9 +248,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
           child: FutureBuilder<DocumentSnapshot>(
-            future: _productDetailsFuture, // <-- SỬ DỤNG FUTURE ĐÃ LƯU
+            future: _productDetailsFuture, 
             builder: (context, snapshot) {
-              // Ensure the document exists and has data before casting.
+             
               final docData = snapshot.data?.data() as Map<String, dynamic>?;
               if (docData == null) return const SizedBox(height: 50);
 
@@ -349,4 +349,5 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       ],
     );
   }
+
 }
