@@ -69,13 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     : ElevatedButton(
                         style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
                         onPressed: _submit,
-                        // LỖI ĐÃ SỬA: Thêm 'child' với Text widget ở đây
+                  
                         child: const Text('Đăng nhập'),
                       ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).push(
-                      // LỖI ĐÃ SỬA: Thêm dấu ngoặc đơn () quanh 'builder'
+
                       MaterialPageRoute(
                         builder: (context) => const RegisterScreen(),
                       ),
@@ -90,4 +90,5 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
 }
