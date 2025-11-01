@@ -46,7 +46,6 @@ class ManageUsersScreen extends StatelessWidget {
                       Text(userData['email'] ?? 'N/A'),
                       const Divider(height: 15, thickness: 1),
 
-                      // Dropdown chỉnh vai trò và trạng thái
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -65,7 +64,7 @@ class ManageUsersScreen extends StatelessWidget {
                               }
                             },
                           ),
-                          // Dropdown cho TRẠNG THÁI (STATUS)
+                 
                           DropdownButton<String>(
                             value: currentStatus,
                             items: ['active', 'restricted', 'banned']
@@ -90,3 +89,4 @@ class ManageUsersScreen extends StatelessWidget {
     );
   }
 }
+
