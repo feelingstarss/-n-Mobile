@@ -12,9 +12,6 @@ class AuthService {
   String? get currentUserId => _auth.currentUser?.uid;
   String? get currentUserDisplayName => _auth.currentUser?.displayName;
 
-  /// ----------------------------
-  /// Đăng ký người dùng mới
-  /// ----------------------------
   Future<String> registerWithEmailPassword({
     required String email,
     required String password,
@@ -142,3 +139,4 @@ class AuthService {
     }
   }
 }
+
