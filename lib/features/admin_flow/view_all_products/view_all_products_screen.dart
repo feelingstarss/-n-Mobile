@@ -1,7 +1,7 @@
 // lib/features/admin_flow/view_all_products/view_all_products_screen.dart
 
-import 'dart:convert'; // Import này dùng cho base64Decode
-import 'dart:typed_data'; // Import này dùng cho Uint8List
+import 'dart:convert'; 
+import 'dart:typed_data'; 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doanmobile/data/services/firestore_service.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
     );
   }
 
-  // Hàm hiển thị icon lỗi
+  
   Widget _buildErrorPlaceholder() {
     return Container(
       width: 50,
@@ -84,15 +84,14 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
     );
   }
 
-  // Hàm hiển thị ảnh (Base64 hoặc URL)
   Widget _buildImageWidget(String imageDataString) {
-    // 1. Kiểm tra Base64
+
     if (imageDataString.startsWith('data:image')) {
       try {
         final parts = imageDataString.split(',');
         if (parts.length != 2) throw Exception('Invalid data URI');
         
-        // Thêm kiểu "Uint8List" để trình phân tích nhận diện
+      
         final Uint8List imageBytes = base64Decode(parts[1]); 
         
         return Image.memory(
@@ -108,7 +107,7 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
       }
     }
 
-    // 2. Kiểm tra URL http
+    
     if (imageDataString.startsWith('http')) {
       return Image.network(
         imageDataString,
@@ -119,7 +118,7 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
       );
     }
 
-    // 3. Nếu không phải cả hai
+ 
     return _buildErrorPlaceholder();
   }
 
@@ -131,7 +130,7 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
       ),
       body: Column(
         children: [
-          // THANH TÌM KIẾM
+         
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -144,7 +143,7 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
               ),
             ),
           ),
-          // DANH SÁCH SẢN PHẨM
+       
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: _firestoreService
@@ -196,4 +195,5 @@ class _ViewAllProductsScreenState extends State<ViewAllProductsScreen> {
       ),
     );
   }
+
 }
