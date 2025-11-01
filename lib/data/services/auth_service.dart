@@ -20,7 +20,7 @@ class AuthService {
     Map<String, String>? sellerInfo,
   }) async {
     try {
-      // Tạo tài khoản
+
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -31,11 +31,11 @@ class AuthService {
         return "Không thể tạo người dùng.";
       }
 
-      // Cập nhật tên hiển thị
+    
       await newUser.updateDisplayName(displayName);
       await newUser.reload();
 
-      // Dữ liệu lưu Firestore
+ 
       Map<String, dynamic> userData = {
         'uid': newUser.uid,
         'email': email,
@@ -45,7 +45,7 @@ class AuthService {
         'createdAt': FieldValue.serverTimestamp(),
       };
 
-      // Nếu là seller thì thêm thông tin ngân hàng (nếu có)
+
       if (isSeller && sellerInfo != null) {
         userData.addAll({
           'bankAccount': sellerInfo['bankAccount'],
@@ -53,10 +53,10 @@ class AuthService {
         });
       }
 
-      // Ghi dữ liệu lên Firestore
+     
       await _firestore.collection('users').doc(newUser.uid).set(userData);
 
-      // Sau khi tạo xong → đăng xuất
+     
       await _auth.signOut();
 
       return "Success";
@@ -73,9 +73,7 @@ class AuthService {
     }
   }
 
-  /// ----------------------------
-  /// Đăng nhập
-  /// ----------------------------
+
   Future<String> signInWithEmailPassword({
     required String email,
     required String password,
@@ -93,9 +91,7 @@ class AuthService {
     }
   }
 
-  /// ----------------------------
-  /// Đăng xuất
-  /// ----------------------------
+
   Future<void> signOut() async {
     try {
       await _auth.signOut();
@@ -104,9 +100,7 @@ class AuthService {
     }
   }
 
-  /// ----------------------------
-  /// Lấy thông tin người dùng hiện tại
-  /// ----------------------------
+ 
   Future<DocumentSnapshot?> getCurrentUserDetails() async {
     try {
       final user = _auth.currentUser;
@@ -120,9 +114,7 @@ class AuthService {
     }
   }
 
-  /// ----------------------------
-  /// Kiểm tra xem người dùng hiện tại có phải là seller không
-  /// ----------------------------
+  
   Future<bool> get currentUserIsSeller async {
     try {
       final userSnap = await getCurrentUserDetails();
@@ -139,4 +131,5 @@ class AuthService {
     }
   }
 }
+
 
