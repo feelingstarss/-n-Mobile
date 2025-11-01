@@ -35,10 +35,9 @@ class Wrapper extends StatelessWidget {
                     body: Center(child: CircularProgressIndicator()));
               }
 
-              // LỖI ĐÃ SỬA: Kiểm tra xem document có tồn tại hay không
               if (detailsSnapshot.hasData &&
                   (detailsSnapshot.data?.exists ?? false)) {
-                // Chỉ khi document tồn tại, chúng ta mới đọc dữ liệu
+               
                 final userData =
                     detailsSnapshot.data!.data() as Map<String, dynamic>?;
                 final role = userData?['role'];
@@ -58,7 +57,6 @@ class Wrapper extends StatelessWidget {
                 }
               }
 
-              // Nếu không có dữ liệu, hoặc document không tồn tại, hiển thị thông báo rõ ràng
               return Scaffold(
                 body: Center(
                   child: Column(
@@ -91,3 +89,4 @@ class Wrapper extends StatelessWidget {
     );
   }
 }
+
