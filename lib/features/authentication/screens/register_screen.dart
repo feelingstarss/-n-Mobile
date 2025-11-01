@@ -22,7 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String? _selectedBank;
 
-  // Danh sách ngân hàng và mã BIN tương ứng
+ 
   final Map<String, String> _bankBinMap = {
     'Vietcombank': '970436',
     'VietinBank': '970411',
@@ -201,3 +201,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
+
