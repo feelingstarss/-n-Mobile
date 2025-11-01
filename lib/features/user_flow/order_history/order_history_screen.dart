@@ -13,7 +13,7 @@ class OrderHistoryScreen extends StatelessWidget {
     final String? userId = authService.currentUserId;
     final firestoreService = FirestoreService();
 
-    debugPrint("=== DEBUG OrderHistory: UserId = $userId");  // Debug userId
+    debugPrint("=== DEBUG OrderHistory: UserId = $userId"); 
 
     return Scaffold(
       appBar: AppBar(title: const Text('Lịch sử đơn hàng')),
@@ -23,7 +23,7 @@ class OrderHistoryScreen extends StatelessWidget {
               stream: firestoreService.getOrdersByUser(userId),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  debugPrint("=== DEBUG OrderHistory Error: ${snapshot.error}");  // Debug lỗi
+                  debugPrint("=== DEBUG OrderHistory Error: ${snapshot.error}");  
                   return Center(child: Text('Lỗi tải đơn hàng: ${snapshot.error}'));
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -129,4 +129,5 @@ class OrderHistoryScreen extends StatelessWidget {
         return status;
     }
   }
+
 }
