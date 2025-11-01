@@ -1,7 +1,7 @@
 // lib/features/seller_flow/manage_products/manage_products_screen.dart
 
-import 'dart:convert'; // <-- THÊM IMPORT
-import 'dart:typed_data'; // <-- THÊM IMPORT
+import 'dart:convert'; 
+import 'dart:typed_data'; 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doanmobile/data/models/product_model.dart';
 import 'package:doanmobile/data/services/auth_service.dart';
@@ -16,7 +16,6 @@ class ManageProductsScreen extends StatelessWidget {
 
   final FirestoreService _firestoreService = FirestoreService();
 
-  // Hàm hiển thị hộp thoại xác nhận xóa
   void _showDeleteConfirmation(
       BuildContext context, String productId, String productName) {
     showDialog(
@@ -27,12 +26,12 @@ class ManageProductsScreen extends StatelessWidget {
           content: Text('Bạn có chắc chắn muốn xóa sản phẩm "$productName"?'),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(ctx).pop(), // Đóng dialog
+              onPressed: () => Navigator.of(ctx).pop(), 
               child: const Text('Hủy'),
             ),
             TextButton(
               onPressed: () async {
-                Navigator.of(ctx).pop(); // close dialog first
+                Navigator.of(ctx).pop(); 
                 try {
                   await _firestoreService.deleteProduct(productId);
                   if (context.mounted) {
@@ -59,9 +58,7 @@ class ManageProductsScreen extends StatelessWidget {
     );
   }
 
-  // --- CÁC HÀM HỖ TRỢ HIỂN THỊ ẢNH (ĐƯỢC THÊM VÀO) ---
 
-  // Hàm hiển thị icon lỗi
   Widget _buildErrorPlaceholder() {
     return Container(
       width: 50,
@@ -71,13 +68,13 @@ class ManageProductsScreen extends StatelessWidget {
     );
   }
 
-  // Hàm hiển thị ảnh (Base64 hoặc URL)
+ 
   Widget _buildImageWidget(String imageDataString) {
     if (imageDataString.isEmpty) {
       return _buildErrorPlaceholder();
     }
     
-    // 1. Kiểm tra Base64
+
     if (imageDataString.startsWith('data:image')) {
       try {
         final parts = imageDataString.split(',');
@@ -98,7 +95,7 @@ class ManageProductsScreen extends StatelessWidget {
       }
     }
 
-    // 2. Kiểm tra URL http
+ 
     if (imageDataString.startsWith('http')) {
       return Image.network(
         imageDataString,
@@ -109,10 +106,10 @@ class ManageProductsScreen extends StatelessWidget {
       );
     }
 
-    // 3. Nếu không phải cả hai
+
     return _buildErrorPlaceholder();
   }
-  // --- KẾT THÚC HÀM HỖ TRỢ ---
+  
 
   @override
   Widget build(BuildContext context) {
@@ -145,16 +142,16 @@ class ManageProductsScreen extends StatelessWidget {
                     var doc = snapshot.data!.docs[index];
                     ProductModel product = ProductModel.fromFirestore(doc);
 
-                    // Lấy ảnh đầu tiên (có thể là Base64 hoặc URL)
+                    
                     String firstImage = product.imageUrls.isNotEmpty
                         ? product.imageUrls.first
                         : '';
 
                     return Card(
                       child: ListTile(
-                        // --- SỬ DỤNG HÀM MỚI ĐỂ HIỂN THỊ ẢNH ---
+                       
                         leading: _buildImageWidget(firstImage),
-                        // --- KẾT THÚC SỬA ---
+                      
                         title: Text(product.productName),
                         subtitle:
                             Text('${product.price} đ - Kho: ${product.stock}'),
@@ -164,7 +161,7 @@ class ManageProductsScreen extends StatelessWidget {
                             IconButton(
                               icon: const Icon(Icons.edit, color: Colors.blue),
                               onPressed: () {
-                                // Điều hướng đến màn hình Edit
+                              
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -202,4 +199,5 @@ class ManageProductsScreen extends StatelessWidget {
       ),
     );
   }
+
 }
