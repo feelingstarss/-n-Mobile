@@ -253,7 +253,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              _processPayment(); // async nhưng không dùng context trực tiếp bên trong
+              _processPayment(); 
             },
             child: const Text('Đồng ý'),
           ),
@@ -292,12 +292,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       );
     }
 
-    // Xóa sản phẩm đã thanh toán khỏi giỏ hàng
+ 
     for (var item in widget.cartItems) {
       await firestoreService.removeFromCart(userId, item['cartItemId']);
     }
 
-    // Sau khi async xong, dùng context an toàn
+   
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -312,3 +312,4 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return '${value.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')} đ';
   }
 }
+
