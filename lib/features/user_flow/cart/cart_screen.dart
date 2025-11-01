@@ -15,7 +15,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final FirestoreService _firestoreService = FirestoreService();
   final ValueNotifier<Set<String>> _selectedProductIds = ValueNotifier({});
-  final Map<String, int> _quantities = {}; // Lưu số lượng tạm thời (local state)
+  final Map<String, int> _quantities = {}; 
 
   late Stream<List<Map<String, dynamic>>> _cartItemsStream;
   final Map<String, Map<String, dynamic>> _productDetailsCache = {};
@@ -105,10 +105,10 @@ class _CartScreenState extends State<CartScreen> {
                               },
                             ),
 
-                            // --- SỬA LỖI 1 (INVALID URL) ---
+                         
                             Builder(builder: (context) {
                               final imageUrl = item['imageUrl'] as String;
-                              // Kiểm tra xem URL có phải là link web hợp lệ không
+                       
                               final bool isValidUrl = imageUrl.startsWith('http');
 
                               if (isValidUrl) {
@@ -118,7 +118,7 @@ class _CartScreenState extends State<CartScreen> {
                                   height: 50,
                                   fit: BoxFit.cover,
                                   errorBuilder: (context, error, stackTrace) {
-                                    // Xử lý nếu link bị lỗi khi tải
+                                
                                     return Container(
                                       width: 50,
                                       height: 50,
@@ -129,7 +129,7 @@ class _CartScreenState extends State<CartScreen> {
                                   },
                                 );
                               } else {
-                                // Hiển thị box giữ chỗ nếu link không hợp lệ
+                              
                                 return Container(
                                   width: 50,
                                   height: 50,
@@ -139,7 +139,7 @@ class _CartScreenState extends State<CartScreen> {
                                 );
                               }
                             }),
-                            // --- KẾT THÚC SỬA LỖI 1 ---
+                       
                           ],
                         ),
                         title: Text(item['productName']),
@@ -149,13 +149,13 @@ class _CartScreenState extends State<CartScreen> {
                             Text('Giá: ${_formatCurrency(item['price'])}'),
                             Text('Kho còn: $stock'),
 
-                            // --- SỬA LỖI 2 (OVERFLOWED) ---
+                           
                             Row(
-                              mainAxisSize: MainAxisSize.min, // Chỉ chiếm không gian tối thiểu
+                              mainAxisSize: MainAxisSize.min, 
                               children: [
                                 IconButton(
-                                  padding: EdgeInsets.zero, // Xóa padding
-                                  constraints: const BoxConstraints(), // Xóa ràng buộc kích thước
+                                  padding: EdgeInsets.zero, 
+                                  constraints: const BoxConstraints(), 
                                   icon: const Icon(Icons.remove_circle_outline, size: 20),
                                   onPressed: quantity > 1
                                       ? () async {
@@ -173,8 +173,8 @@ class _CartScreenState extends State<CartScreen> {
                                   child: Text('$quantity', style: const TextStyle(fontSize: 16)),
                                 ),
                                 IconButton(
-                                  padding: EdgeInsets.zero, // Xóa padding
-                                  constraints: const BoxConstraints(), // Xóa ràng buộc kích thước
+                                  padding: EdgeInsets.zero, 
+                                  constraints: const BoxConstraints(), 
                                   icon: const Icon(Icons.add_circle_outline, size: 20),
                                   onPressed: quantity < stock
                                       ? () async {
@@ -189,7 +189,7 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               ],
                             ),
-                            // --- KẾT THÚC SỬA LỖI 2 ---
+                            
                           ],
                         ),
                         trailing: IconButton(
@@ -344,4 +344,5 @@ class _CartScreenState extends State<CartScreen> {
           (m) => '${m[1]}.',
         )} đ';
   }
+
 }
