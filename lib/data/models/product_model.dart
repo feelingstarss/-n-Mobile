@@ -25,8 +25,8 @@ class ProductModel {
     required this.productName,
     required this.description,
     required this.price,
-    required this.category, // <-- Thêm mới
-    required this.variants, // <-- Thêm mới
+    required this.category, 
+    required this.variants, 
     required this.imageUrls,
     required this.sellerId,
     required this.sellerName,
@@ -55,4 +55,5 @@ class ProductModel {
     );
   }
 }
+
 
