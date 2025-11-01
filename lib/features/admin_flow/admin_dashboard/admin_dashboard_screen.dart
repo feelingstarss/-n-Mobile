@@ -42,7 +42,7 @@ class AdminDashboardScreen extends StatelessWidget {
               title: const Text('Quản lý Tất cả Sản phẩm'),
               subtitle: const Text('Xem hoặc gỡ bỏ sản phẩm vi phạm'),
               onTap: () {
-                // CẢI TIẾN: Điều hướng đến màn hình quản lý sản phẩm
+                
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -56,3 +56,4 @@ class AdminDashboardScreen extends StatelessWidget {
     );
   }
 }
+
