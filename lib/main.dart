@@ -13,7 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Đã xóa bỏ phần khởi tạo NotificationService
+  
 
   runApp(const MyApp());
 }
@@ -36,4 +36,5 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
 }
