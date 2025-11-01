@@ -62,7 +62,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
             .toList();
       }
     }
-    // Load ảnh từ SQLite nếu sửa sản phẩm
+   
     if (widget.product != null) {
       ProductImageDatabase.instance
           .getImages(productId: widget.product!.id)
@@ -99,7 +99,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
 
         if (sellerId == null) throw Exception("Không thể xác thực người dùng.");
 
-        // Chỉ kiểm tra role seller thôi
+     
         bool isSeller = await authService.currentUserIsSeller;
         if (!isSeller) {
           if (!mounted) return;
@@ -343,3 +343,4 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
     );
   }
 }
+
